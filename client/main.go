@@ -11,8 +11,9 @@ import (
 )
 
 const (
-	address     = "localhost:1337"
-	defaultName = "DEFAULT_NAME"
+	address      = "localhost:1337"
+	defaultName  = "DEFAULT_NAME"
+	defaultState = "START"
 )
 
 func main() {
@@ -30,9 +31,14 @@ func main() {
 		name = os.Args[1]
 	}
 
+	state := defaultState
+	if len(os.Args) > 2 {
+		state = os.Args[2]
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.CreateCheckpoint(ctx, &pb.CheckpointRequest{Name: name, Timestamp: time.Now().UnixNano() / int64(time.Millisecond)})
+	r, err := c.CreateCheckpoint(ctx, &pb.CheckpointRequest{Name: name, State: state, Timestamp: time.Now().UnixNano() / int64(time.Millisecond)})
 
 	if err != nil {
 		log.Fatalf("Could not create checkpoint: %v", err)

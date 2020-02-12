@@ -18,7 +18,7 @@ type server struct {
 }
 
 func (s *server) CreateCheckpoint(ctx context.Context, in *pb.CheckpointRequest) (*pb.CheckpointReply, error) {
-	log.Printf("Received Checkpoint: %v", in.GetName())
+	log.Printf("Received Checkpoint: %v %v", in.GetName(), in.GetState())
 	return &pb.CheckpointReply{Status: 1}, nil
 }
 
