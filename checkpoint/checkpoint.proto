@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package checkpoint;
+
+service Checkpoint {
+  rpc CreateCheckpoint (CheckpointRequest) returns (CheckpointReply) {}
+}
+
+message CheckpointRequest {
+  string name = 1;
+  string state = 2;
+  int64 timestamp = 3;
+}
+
+message CheckpointReply {
+  int32 status = 1;
+}
